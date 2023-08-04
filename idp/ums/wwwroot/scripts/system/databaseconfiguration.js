@@ -454,12 +454,11 @@ function registration(isSimpleMode) {
 }
 
 function azureStep() {
-    $("#file-storage").prop("disabled", true);
-    $("#blob-storage").prop("checked", true);
+    document.getElementById("storage-type").ej2_instances[0].value = "1";
     $(".custom-endpoint-form-element, .report-content").hide();
     $("#blob-storage-form").slideDown("slow");
     $("#report-storage").hide();
-    $(".content-value").hide();
+    $(".content-value").hide(); 
     storageButtonValue = "tenant";
     $(".storage-checkbox").hide();
     $("body").removeClass("startup-page-container-body");
@@ -472,7 +471,7 @@ function azureStep() {
 
     $("#txt-accountname").val(storageAccountName);
     $("#txt-endpoint").val(blobServiceEndpoint);
-    $("#txt-accesskey").val(accessKey);
+    $("#txt-accesskey").val(accessKey);  
     $("#txt-containername").val(containerName);
     validate_storage_type();
 }
