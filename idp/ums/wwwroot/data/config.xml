@@ -67,4 +67,5 @@
 		<HideManageSites>false</HideManageSites>
 		<HideLogout>false</HideLogout>
 	</ProfileMenu>
+	<IgnoreSslValidation>false</IgnoreSslValidation>
 </SystemSettings>

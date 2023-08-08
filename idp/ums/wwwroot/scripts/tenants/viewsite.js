@@ -934,6 +934,18 @@ function updateTenantStatus(actionUrl, tenantId, action) {
     });
 }
 
+$(document).on("change", "#isolation-enable-switch", function (event) {
+    event.preventDefault();
+    if ($("#isolation-enable-switch").is(":checked")) {
+        $("#update-isolation-code").attr("disabled", false);
+        $("#isolation-code").attr("disabled", false);
+        enableIsolationCode();
+    }
+    else {
+        $("#update-isolation-code").attr("disabled", true);
+        $("#isolation-code").attr("disabled", true);
+    }
+});
 
 function enableIsolationCode() {
     isolationCode = isIsolationCodeUpdated ? $("#isolation-code").val().trim() : isolationCode;
@@ -950,7 +962,6 @@ function enableIsolationCode() {
     }
 
     if ($("#isolation-code").val() == "" && isEnabled) {
-        $("#update-isolation-code").attr("disabled", true);
         $("#isolation-code-validation").html(window.Server.App.LocalizationContent.IsolationCodeValidator);
     }
     else {
@@ -967,24 +978,21 @@ $(document).on("click", "#update-isolation-code", function (e) {
     var isolationCode = $("#isolation-code").val().trim();
     var tenantInfoId = $(".isolation-code-value").attr("data-tenant-id");
     var isIsolationCodeEnabled = $("#isolation-enable-switch").is(":checked");
-    if (isIsolationCodeEnabled) {
-        showWaitingPopup('content-area');
-        $.ajax({
-            type: "POST",
-            data: { tenantInfoId: tenantInfoId, isolationCode: isolationCode, isIsolationCodeEnabled: isIsolationCodeEnabled },
-            url: updateIsolationCodeUrl,
-            success: function (result) {
-                if (result.Status) {
-                    isIsolationCodeUpdated = true;
-                    SuccessAlert(window.Server.App.LocalizationContent.IsolationCode, window.Server.App.LocalizationContent.IsolationCodeSucess, 7000);
-                    $("#update-isolation-code").attr("disabled", true);
-                } else {
-                    WarningAlert(window.Server.App.LocalizationContent.IsolationCode, window.Server.App.LocalizationContent.IsolationCodeError, result.Message, 7000);
-                }
-                hideWaitingPopup('content-area');
+    showWaitingPopup('content-area');
+    $.ajax({
+        type: "POST",
+        data: { tenantInfoId: tenantInfoId, isolationCode: isolationCode, isIsolationCodeEnabled: isIsolationCodeEnabled },
+        url: updateIsolationCodeUrl,
+        success: function (result) {
+            if (result.Status) {
+                isIsolationCodeUpdated = true;
+                SuccessAlert(window.Server.App.LocalizationContent.IsolationCode, window.Server.App.LocalizationContent.IsolationCodeSucess, 7000);
+            } else {
+                WarningAlert(window.Server.App.LocalizationContent.IsolationCode, window.Server.App.LocalizationContent.IsolationCodeError, result.Message, 7000);
             }
-        });
-    }
+            hideWaitingPopup('content-area');
+        }
+    });
 });
 
 
