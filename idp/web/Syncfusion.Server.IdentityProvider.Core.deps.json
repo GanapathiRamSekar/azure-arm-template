@@ -3651,7 +3651,6 @@
         "dependencies": {
           "AWS.Logger.Log4net": "3.3.1",
           "AWSSDK.S3": "3.7.103.47",
-          "Microsoft.AspNetCore.Http": "2.2.2",
           "Microsoft.AspNetCore.Http.Abstractions": "2.2.0",
           "Microsoft.Extensions.Configuration.Abstractions": "6.0.0",
           "Microsoft.Extensions.Localization.Abstractions": "6.0.9",
